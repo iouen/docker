@@ -1,0 +1,9 @@
+##### elasticsearch 启动依赖的最大虚拟线程数设置
+```
+$ grep vm.max_map_count /etc/sysctl.conf
+vm.max_map_count=262144
+
+sysctl -p
+
+```
+
