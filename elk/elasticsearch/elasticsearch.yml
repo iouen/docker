@@ -1,0 +1,52 @@
+cluster.name: application-elasticsearch
+network.host: 0.0.0.0
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+discovery.zen.minimum_master_nodes: 1
+xpack.license.self_generated.type: basic
+
+
+## http.port: 9200
+## transport.tcp.port: 9300
+##
+## --------------------------------- Discovery ----------------------------------
+##
+## Pass an initial list of hosts to perform discovery when new node is started:
+## The default list of hosts is ["127.0.0.1", "[::1]"]
+##
+##discovery.zen.ping.unicast.hosts: ["host1", "host2"]
+##
+## Prevent the "split brain" by configuring the majority of nodes (total number of nodes / 2 + 1):
+##
+##discovery.zen.minimum_master_nodes: 3
+##
+## For more information, see the documentation at:
+## <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
+##
+## ---------------------------------- Gateway -----------------------------------
+##
+## Block initial recovery after a full cluster restart until N nodes are started:
+##
+##gateway.recover_after_nodes: 3
+##
+## For more information, see the documentation at:
+## <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
+##
+## ---------------------------------- Various -----------------------------------
+##
+## Require explicit names when deleting indices:
+##
+##action.destructive_requires_name: true
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+#
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1

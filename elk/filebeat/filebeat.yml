@@ -1,0 +1,54 @@
+filebeat.config:
+  prospectors:
+    path: ${path.config}/prospectors.d/*.yml
+    reload.enabled: false
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+#=========================== Filebeat prospectors =============================
+filebeat.prospectors:
+- type: log
+  enabled: true
+  paths:
+    - /app/logs/cf-admin/*.log
+  encoding: utf-8
+  fields:
+    service: cf-admin
+  fields_under_root: true
+  json.message_key:
+  ignore_older: 48h
+
+- type: log
+  enabled: true
+  paths:
+    - /app/logs/cf-biz-instchannel/*.log
+  encoding: utf-8
+  fields:
+    service: cf-biz-instchannel
+  fields_under_root: true
+  json.message_key:
+  ignore_older: 48h
+#==================== Elasticsearch template setting ==========================
+setup.template.enabled: true
+setup.template.name: "cf-%{+yyyy.MM.dd}"
+setup.template.pattern: "cf-*"
+
+processors:
+- add_cloud_metadata:
+#- add_docker_metadata:
+#    host: "unix:///var/run/docker.sock"
+#    match_fields: ["system.process.cgroup.id"]
+- add_locale:
+    format: offset
+#-------------------------- Elasticsearch output ------------------------------
+output.elasticsearch:
+  hosts: ['192.168.1.116:9200']
+  index: "cf-%{+yyyy.MM.dd}"
+#  username: elastic
+#  password: changem
+#========================= Filebeat global options ============================
+harvester_buffer_size: 5000000
+filebeat.registry_file: /app/filebeat/data/registry
+fields_under_root: true
+fields:
+  host: 192.168.2.80

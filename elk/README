@@ -1,0 +1,96 @@
+### 通过DOCKER搭建ELK日志管理系统
+
+```
+//直接调用如下命令可直接运行，运行前需要调整对应的环境参数，准备docker运行环境
+docker-compose up -d
+
+如下为对应的介绍
+
+```
+
+
+导读：
+日志，不管什么系统，都有需要查看日志的需求，小编一直听闻ELK的强大，所以，也开始尝试在业务系统中，使用ELK做日志的搜集、分析、查询。
+
+什么是ELK？
+ELK是Elasticsearch, Logstash 和 Kibana 的简称。其实，整套的日志系统，就分为这三个部分。我们下面大致介绍下ELK各自的作用，本文描述过程中去掉Logstash重量的部署，换成了Filebeat轻量的日志采集
+
+Elasticsearch:
+ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。
+
+Logstash:
+Logstash是一个用于管理日志和事件的工具，你可以用它去收集日志、转换日志、解析日志并将他们作为数据提供给其它模块调用，例如搜索、存储等。
+
+Kibana:
+Kibana是一个优秀的前端日志展示框架，它可以非常详细的将日志转化为各种图表，为用户提供强大的数据可视化支持。
+
+
+```
+//参考文章
+https://www.cnblogs.com/jicki/p/5913622.html
+
+//elatic官方文档
+https://www.elastic.co/cn/products
+```
+##### Kibana
+
+
+```
+docker pull docker.elastic.co/kibana/kibana:6.1.1
+```
+
+
+```
+
+https://www.elastic.co/guide/en/kibana/current/_configuring_kibana_on_docker.html#_docker_defaults
+
+```
+
+
+##### elasticsearch
+
+```
+启动前设置
+$ grep vm.max_map_count /etc/sysctl.conf
+vm.max_map_count=262144
+```
+
+
+```
+docker pull docker.elastic.co/elasticsearch/elasticsearch:6.1.1
+```
+
+
+```
+https://www.elastic.co/guide/en/elasticsearch/reference/6.1/docker.html
+```
+
+
+
+##### filebeat
+
+
+```
+docker pull docker.elastic.co/beats/filebeat:6.1.1
+```
+
+```
+//filebeat-reference.yml配置的参考
+https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-reference-yml.html
+
+https://www.cnblogs.com/zlslch/p/6622079.html
+
+//filebeat 官方docker搭建文档
+https://www.elastic.co/guide/en/beats/filebeat/current/running-on-docker.html
+
+```
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+version: '2'
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.1.1
+    environment:
+       SERVER_NAME: kibana.example
+       ELASTICSEARCH_URL: http://192.168.1.116:9200
+    volumes:
+       - /app/logs:/app/logs
+#       - ./kibaba.yml:/usr/share/kibana/config/kibana.yml
+    privileged: true
+    restart: always
+    ports:
+       - "5601:5601"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.1
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /app/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /app/elasticsearch/data:/usr/share/elasticsearch/data
+      - /app/elasticsearch/logs:/usr/share/elasticsearch/logs
+    privileged: true
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+    restart: always
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:6.1.1
+    volumes:
+       - /app/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+       - /app/filebeat/data:/app/filebeat/data
+       - /app/logs:/app/logs
+    privileged: true
+    restart: always
+    container_name: filebeat    
+networks:
+  esnet:
