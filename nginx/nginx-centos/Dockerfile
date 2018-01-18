@@ -1,5 +1,5 @@
 #新生成的镜像是基于sshd:dockerfile镜像
-FROM jdk8centos:0.1
+FROM centos
 MAINTAINER by ops
 WORKDIR /usr/local/src
 #安装wget
@@ -29,7 +29,8 @@ ADD run.sh /usr/local/sbin/run.sh
 RUN chmod 755 /usr/local/sbin/run.sh
 #设置生成容器时需要执行的脚本
 CMD ["/usr/local/sbin/run.sh"]
+#CMD ["/usr/local/nginx/sbin/nginx"]
 #开放22、80、443端口
-EXPOSE 22
+#EXPOSE 22
 EXPOSE 80
-EXPOSE 443
+#EXPOSE 443

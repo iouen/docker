@@ -1,0 +1,15 @@
+version: '2'
+services:
+  nginx-centos:
+    image: nginx-centos:latest
+    build:
+       context: ./nginx-centos
+    volumes:
+       - /app/docker/nginx-centos/nginx.conf:/usr/local/nginx/conf/nginx.conf
+       - /app/docker/nginx-centos/vhost:/usr/local/nginx/conf/vhost
+       - /app/docker/nginx-centos/logs:/usr/local/nginx/logs
+       - /app/gitee/frontend/cf-web-devops/web-devops:/app/gitee/frontend/cf-web-devops/web-devops
+    privileged: true
+#    restart: always
+    ports:
+       - "80:80"
