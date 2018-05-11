@@ -1,0 +1,12 @@
+version: '2'
+services:
+  filebeat:
+    image: mritd/filebeat:5.6.3
+    container_name: filebeat
+    restart: always
+    volumes:
+      - ./filebeat.yml:/etc/filebeat/filebeat.yml
+      - /data/docker:/data/docker
+      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers
+    #command: sleep 99999

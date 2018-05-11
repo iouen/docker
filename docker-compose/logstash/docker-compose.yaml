@@ -1,0 +1,13 @@
+version: '2'
+services:
+  logstash:
+    image: mritd/logstash:5.6.3
+    container_name: logstash
+    restart: always
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    volumes:
+      - ./config:/usr/local/logstash/config
+      - ./data:/data
+    command: -f /usr/local/logstash/config/logstash.conf
